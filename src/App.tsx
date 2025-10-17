@@ -1,8 +1,8 @@
-import { ScrollArea } from "@radix-ui/react-scroll-area";
 import "./App.css";
+import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { ProgressiveBlur } from "@/components/ui/progressive-blur";
 import { NavBar } from "./components/NavBar";
-import { RoutingContext } from "./shared/RoutingContext";
+import { RoutingProvider, useRouting } from "./shared/RoutingProvider";
 import { useRef } from "react";
 import { IconHome, IconUser } from "@tabler/icons-react";
 import type { Route } from "./shared/Route";
@@ -22,8 +22,7 @@ function App() {
   const skillsRef = useRef<HTMLDivElement>(null);
   const experienceAndProjectRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
-
-  const routes: Route[] = [
+  const appRoutes: Route[] = [
     {
       RouteName: "Home",
       El: heroRef,
@@ -54,7 +53,7 @@ function App() {
   return (
     <>
       <ThemeProvider>
-        <RoutingContext value={routes}>
+        <RoutingProvider initialRoutes={appRoutes}>
           <NavBar />
           {/* <ProgressiveBlur position="bottom" /> */}
           {/* <ScrollArea> */}
@@ -77,7 +76,7 @@ function App() {
             <Footer />
           </div>
           {/* </ScrollArea> */}
-        </RoutingContext>
+        </RoutingProvider>
       </ThemeProvider>
     </>
   );

@@ -1,8 +1,8 @@
-import { useContext } from "react";
 import { FloatingNav, type NavItem } from "./ui/floating-navbar";
-import { RoutingContext } from "../shared/RoutingContext";
+import { useRouting } from "@/shared/RoutingProvider";
 export function NavBar() {
-  const routes = useContext(RoutingContext);
+  // const routes = useContext(RoutingContext);
+  const { routes } = useRouting();
   const items: NavItem[] = routes.map((r) => {
     return {
       RouteName: r.RouteName,

@@ -1,11 +1,11 @@
 import { motion } from "motion/react";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { BackgroundRippleEffect } from "@/components/ui/background-ripple-effect";
 import { RippleButton } from "@/components/ui/ripple-button";
-import { RoutingContext } from "@/shared/RoutingContext";
+import { useRouting } from "@/shared/RoutingProvider";
 
 export function Hero() {
-  const routingContext = useContext(RoutingContext);
+  const { findRoute } = useRouting();
   const [windowSize, setWindowSize] = useState({
     height: window.innerHeight,
     width: window.innerWidth,
@@ -23,7 +23,7 @@ export function Hero() {
     return () => window.removeEventListener("resize", handelResize);
   }, []);
 
-  const contactLink = routingContext.filter((e) => e.RouteName.toLowerCase() === "contact")[0];
+  const contactLink = findRoute("contact");
   return (
     <>
       <BackgroundRippleEffect
@@ -41,7 +41,7 @@ export function Hero() {
         }}
         className="relative z-50 flex h-dvh flex-col items-center justify-center gap-4 px-4">
         <div className="w-full">
-          <h2 className="font-handwritten relative z-10 mx-auto max-w-4xl text-center text-5xl font-bold text-neutral-800 md:text-4xl lg:text-7xl dark:text-neutral-100">
+          <h2 className="font-handwritten relative z-10 mx-auto max-w-4xl text-center text-5xl font-bold text-neutral-800 md:text-4xl lg:text-8xl dark:text-neutral-100">
             Hi, I'm Abdelrahman
           </h2>
           <div className="relative z-10 mx-auto mt-4 max-w-4xl text-center text-neutral-800 dark:text-neutral-100">
@@ -97,7 +97,7 @@ export function Hero() {
           </a>
           <RippleButton
             onClick={() => {
-              contactLink.El.current?.scrollIntoView({ behavior: "smooth" });
+              contactLink?.El.current?.scrollIntoView({ behavior: "smooth" });
             }}
             rippleColor="#B3B3B3"
             className="w-fit rounded-full bg-black px-4 py-2 text-white dark:bg-white dark:text-black">

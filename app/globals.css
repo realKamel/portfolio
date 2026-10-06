@@ -52,6 +52,9 @@
 }
 
 :root {
+  /* Light is the default theme; `.dark` overrides the semantic layer below. */
+  color-scheme: light;
+
   /* ---- Primitives -------------------------------------------------------
      Raw values only. Components never reference these directly. */
   --neutral-950: oklch(0.145 0.008 285);
@@ -61,16 +64,68 @@
   --neutral-400: oklch(0.647 0.014 285);
   --neutral-50: oklch(0.972 0.003 285);
   --ink-950: oklch(0.17 0.008 285);
+  /* Light-mode neutrals */
+  --neutral-990: oklch(0.998 0.001 285);
+  --neutral-985: oklch(0.985 0.002 285);
+  --neutral-955: oklch(0.955 0.004 285);
+  --neutral-440: oklch(0.44 0.012 285);
+  /* Accents */
   --lime-400: oklch(0.883 0.207 128);
+  --lime-600: oklch(0.5 0.15 135);
   --lime-950: oklch(0.24 0.07 132);
   --red-500: oklch(0.63 0.21 25);
+  --red-600: oklch(0.52 0.2 27);
   --blue-400: oklch(0.7 0.14 220);
+  --blue-600: oklch(0.52 0.14 235);
   --violet-500: oklch(0.65 0.16 300);
+  --violet-600: oklch(0.5 0.17 300);
   --amber-400: oklch(0.78 0.15 80);
+  --amber-600: oklch(0.58 0.14 75);
   --orange-500: oklch(0.6 0.15 20);
+  --orange-600: oklch(0.53 0.16 25);
 
-  /* ---- Semantic ---------------------------------------------------------
+  /* ---- Semantic: light --------------------------------------------------
      Purpose aliases. Components read these (exposed to Tailwind via @theme). */
+  --background: var(--neutral-985);
+  --foreground: oklch(0.19 0.008 285);
+  --card: var(--neutral-990);
+  --card-foreground: var(--foreground);
+  --popover: var(--neutral-990);
+  --popover-foreground: var(--foreground);
+  --primary: oklch(0.19 0.008 285);
+  --primary-foreground: var(--neutral-985);
+  --secondary: var(--neutral-955);
+  --secondary-foreground: var(--foreground);
+  --muted: var(--neutral-955);
+  --muted-foreground: var(--neutral-440);
+  --accent: var(--neutral-955);
+  --accent-foreground: var(--foreground);
+  --destructive: var(--red-600);
+  --border: oklch(0.2 0.01 285 / 12%);
+  --input: oklch(0.2 0.01 285 / 16%);
+  --ring: color-mix(in oklch, var(--lime-600) 55%, transparent);
+  /* Single accent used for highlights, focus and hover states. */
+  --brand: var(--lime-600);
+  --brand-foreground: oklch(0.99 0.01 135);
+  --chart-1: var(--lime-600);
+  --chart-2: var(--blue-600);
+  --chart-3: var(--violet-600);
+  --chart-4: var(--amber-600);
+  --chart-5: var(--orange-600);
+  --radius: 0.75rem;
+  --sidebar: var(--neutral-990);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--lime-600);
+  --sidebar-primary-foreground: oklch(0.99 0.01 135);
+  --sidebar-accent: var(--neutral-955);
+  --sidebar-accent-foreground: var(--foreground);
+  --sidebar-border: oklch(0.2 0.01 285 / 12%);
+  --sidebar-ring: color-mix(in oklch, var(--lime-600) 55%, transparent);
+}
+
+.dark {
+  color-scheme: dark;
+
   --background: var(--neutral-950);
   --foreground: var(--neutral-50);
   --card: var(--neutral-900);
@@ -89,7 +144,6 @@
   --border: oklch(1 0 0 / 9%);
   --input: oklch(1 0 0 / 12%);
   --ring: color-mix(in oklch, var(--lime-400) 55%, transparent);
-  /* Single accent used for highlights, focus and hover states. */
   --brand: var(--lime-400);
   --brand-foreground: var(--lime-950);
   --chart-1: var(--lime-400);
@@ -97,7 +151,6 @@
   --chart-3: var(--violet-500);
   --chart-4: var(--amber-400);
   --chart-5: var(--orange-500);
-  --radius: 0.75rem;
   --sidebar: var(--neutral-900);
   --sidebar-foreground: var(--neutral-50);
   --sidebar-primary: var(--lime-400);
@@ -106,13 +159,6 @@
   --sidebar-accent-foreground: var(--neutral-50);
   --sidebar-border: oklch(1 0 0 / 9%);
   --sidebar-ring: color-mix(in oklch, var(--lime-400) 55%, transparent);
-  color-scheme: dark;
-}
-
-.dark {
-  /* The palette is defined once in :root — this class only declares the
-     colour scheme so UA widgets (scrollbars, form controls) match. */
-  color-scheme: dark;
 }
 
 @layer base {
@@ -186,4 +232,21 @@
   [class*="backdrop-blur"] {
     backdrop-filter: none;
   }
+}
+
+/* Circle-reveal theme change (View Transitions API).
+   The default cross-fade is disabled so the growing circle is the only motion;
+   the new theme's snapshot is what expands over the old one. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
 }

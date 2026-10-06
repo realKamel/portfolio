@@ -12,6 +12,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { navLinks, profile } from "@/lib/data";
 import { useScrolledPast } from "@/lib/motion";
 import { cn } from "@/lib/utils";
@@ -56,6 +57,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <Button
             variant="outline"
             size="sm"

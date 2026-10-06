@@ -62,7 +62,10 @@ export interface Project {
  * brand is defined once per surface.
  */
 export const brandColors = {
+  /** Dark-mode page background (also used for the generated OG card). */
   background: "#0b0b0f",
+  /** Light-mode page background. */
+  backgroundLight: "#f7f7f9",
   foreground: "#f5f5f7",
   card: "#17171b",
   mutedForeground: "#9a9aa2",

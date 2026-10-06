@@ -15,15 +15,11 @@ export function About() {
     <section id="about" className="scroll-mt-24 py-24 sm:py-32">
       <div className="mx-auto w-full max-w-6xl px-6 sm:px-8 lg:px-12">
         <SectionHeading
-          index="01"
-          eyebrow="About"
           title={
             <>
               A computer-science graduate who cares about the{" "}
-              <span className="font-serif font-normal italic text-brand">
-                architecture
-              </span>{" "}
-              behind the interface.
+              <span className="text-brand">architecture</span> behind the
+              interface.
             </>
           }
         />
@@ -53,10 +49,7 @@ export function About() {
                   </dt>
                   <dd className="max-w-[62%] text-right text-sm font-medium">
                     {fact.highlight ? (
-                      <span className="inline-flex items-center gap-2">
-                        <span className="size-1.5 rounded-full bg-brand" />
-                        {fact.value}
-                      </span>
+                      <span className="text-brand">{fact.value}</span>
                     ) : (
                       fact.value
                     )}

@@ -1,13 +1,14 @@
 "use client";
 
 import { m, useReducedMotion } from "framer-motion";
-import { ArrowDown, ArrowUpRight, Download, MapPin } from "lucide-react";
+import { ArrowUpRight, Download } from "lucide-react";
 
 import { AnimatedCounter } from "@/components/animated-counter";
 import { Magnetic } from "@/components/magnetic";
+import { Reveal } from "@/components/reveal";
 import { Button } from "@/components/ui/button";
 import { profile, stats } from "@/lib/data";
-import { EASE, fadeUp, staggerContainer } from "@/lib/motion";
+import { fadeUp, staggerContainer } from "@/lib/motion";
 
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
@@ -15,24 +16,24 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative isolate overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-20 lg:pt-44"
+      className="relative isolate overflow-hidden pt-24 pb-16 sm:pb-20"
     >
-      {/* Background: hairline grid + a single soft brand glow. */}
+      {/* Ambient light only. No decorative grid lines. */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="grid-lines absolute inset-0" />
-        <div className="absolute -top-56 left-1/2 h-136 w-136 -translate-x-1/2 rounded-full bg-brand/10 blur-[130px]" />
+        <div className="absolute -top-56 left-1/2 h-136 w-136 -translate-x-1/2 rounded-full bg-brand/8 blur-[130px]" />
       </div>
 
       <div className="mx-auto w-full max-w-6xl px-6 sm:px-8 lg:px-12">
-        <m.div variants={staggerContainer(0.09)} initial="hidden" animate="show">
+        <m.div
+          variants={staggerContainer(0.09)}
+          initial={shouldReduceMotion ? false : "hidden"}
+          animate="show"
+        >
           <m.div
             variants={fadeUp}
-            className="inline-flex items-center gap-2.5 rounded-full border border-border bg-card/60 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground backdrop-blur"
+            className="inline-flex items-center gap-2.5 rounded-full border border-border bg-card/60 px-3 py-1.5 font-mono text-[11px] tracking-[0.18em] text-muted-foreground uppercase backdrop-blur"
           >
-            <span className="relative flex size-1.5">
-              <span className="absolute inline-flex size-full animate-ping rounded-full bg-brand opacity-75" />
-              <span className="relative inline-flex size-1.5 rounded-full bg-brand" />
-            </span>
+            <span aria-hidden className="size-1.5 rounded-full bg-brand" />
             {profile.availability}
           </m.div>
 
@@ -40,18 +41,15 @@ export function Hero() {
             variants={fadeUp}
             className="mt-8 max-w-4xl text-4xl leading-[1.05] font-medium tracking-tight text-balance sm:text-6xl lg:text-7xl"
           >
-            Building{" "}
-            <span className="font-serif font-normal italic text-brand">
-              scalable
-            </span>
-            , well-architected web applications with .NET&nbsp;&amp;&nbsp;Angular.
+            Building <span className="text-brand">scalable</span>,
+            well-architected web applications with .NET&nbsp;&amp;&nbsp;Angular.
           </m.h1>
 
           <m.p
             variants={fadeUp}
             className="mt-7 max-w-2xl text-base leading-relaxed text-muted-foreground text-pretty sm:text-lg"
           >
-            {profile.summary} {profile.summaryExtended}
+            {profile.summary}
           </m.p>
 
           <m.div
@@ -80,21 +78,23 @@ export function Hero() {
                 Résumé
               </Button>
             </Magnetic>
-            <span className="inline-flex items-center gap-2 pl-1 text-sm text-muted-foreground">
-              <MapPin className="size-3.5" />
-              {profile.location}
-            </span>
           </m.div>
         </m.div>
+      </div>
+    </section>
+  );
+}
 
-        <m.dl
-          variants={staggerContainer(0.08, 0.45)}
-          initial="hidden"
-          animate="show"
-          className="mt-16 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-border pt-10 sm:mt-20 sm:grid-cols-4"
-        >
-          {stats.map((stat) => (
-            <m.div key={stat.label} variants={fadeUp}>
+export function Stats() {
+  return (
+    <section
+      aria-label="Key facts"
+      className="border-t border-border py-14 sm:py-16"
+    >
+      <div className="mx-auto w-full max-w-6xl px-6 sm:px-8 lg:px-12">
+        <dl className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4">
+          {stats.map((stat, index) => (
+            <Reveal key={stat.label} delay={index * 0.06}>
               <dt className="sr-only">{stat.label}</dt>
               <dd>
                 <span className="block text-3xl font-medium tracking-tight sm:text-4xl">
@@ -111,27 +111,10 @@ export function Hero() {
                   {stat.detail}
                 </span>
               </dd>
-            </m.div>
+            </Reveal>
           ))}
-        </m.dl>
+        </dl>
       </div>
-
-      <m.a
-        href="#about"
-        aria-label="Scroll to about"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 0.6, ease: EASE }}
-        className="mx-auto mt-16 hidden w-fit items-center gap-2 rounded-md font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground transition-colors hover:text-foreground focus-visible:text-foreground focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50 lg:flex"
-      >
-        <m.span
-          animate={shouldReduceMotion ? undefined : { y: [0, 6, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <ArrowDown className="size-3.5" />
-        </m.span>
-        Scroll
-      </m.a>
     </section>
   );
 }

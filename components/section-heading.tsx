@@ -4,8 +4,8 @@ import { Reveal } from "@/components/reveal";
 import { cn } from "@/lib/utils";
 
 interface SectionHeadingProps {
-  index: string;
-  eyebrow: string;
+  /** Optional plain-language label. Use sparingly (max 1 per 3 sections). */
+  eyebrow?: string;
   title: ReactNode;
   description?: ReactNode;
   align?: "left" | "center";
@@ -13,7 +13,6 @@ interface SectionHeadingProps {
 }
 
 export function SectionHeading({
-  index,
   eyebrow,
   title,
   description,
@@ -24,20 +23,21 @@ export function SectionHeading({
 
   return (
     <Reveal className={cn(centered && "text-center", className)}>
-      <div
-        className={cn(
-          "flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground",
-          centered && "justify-center",
-        )}
-      >
-        <span className="text-brand">{index}</span>
-        <span className="h-px w-8 bg-border" aria-hidden />
-        <span>{eyebrow}</span>
-      </div>
+      {eyebrow ? (
+        <p
+          className={cn(
+            "font-mono text-[11px] tracking-[0.22em] text-muted-foreground uppercase",
+            centered && "text-center",
+          )}
+        >
+          {eyebrow}
+        </p>
+      ) : null}
 
       <h2
         className={cn(
-          "mt-5 max-w-3xl text-3xl font-medium leading-[1.1] tracking-tight text-balance sm:text-4xl lg:text-[2.75rem]",
+          "max-w-3xl text-3xl font-medium leading-[1.1] tracking-tight text-balance sm:text-4xl lg:text-[2.75rem]",
+          eyebrow ? "mt-5" : undefined,
           centered && "mx-auto",
         )}
       >

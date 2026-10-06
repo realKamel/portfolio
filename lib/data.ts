@@ -2,7 +2,7 @@
  * Single source of truth for everything rendered on the portfolio.
  * Sections stay presentational and just consume these structures.
  *
- * NOTE: some project links point to the GitHub profile as a placeholder —
+ * NOTE: some project links point to the GitHub profile as a placeholder -
  * replace the `TODO` URLs with the exact repository / demo links.
  */
 
@@ -46,15 +46,28 @@ export interface ProjectLink {
 }
 
 export interface Project {
-  index: string;
   title: string;
   subtitle: string;
   year: string;
   status?: string;
   highlights: string[];
   tags: string[];
+  /** Decorative placeholder visual. Replace with a real project screenshot. */
+  image: string;
   links: ProjectLink[];
 }
+/**
+ * Hex mirrors of the dark palette in `app/globals.css`. Consumers that cannot
+ * read CSS variables (the OG image renderer, `theme-color`) import these so the
+ * brand is defined once per surface.
+ */
+export const brandColors = {
+  background: "#0b0b0f",
+  foreground: "#f5f5f7",
+  card: "#17171b",
+  mutedForeground: "#9a9aa2",
+  brand: "#b6f36a",
+} as const;
 
 export const profile = {
   name: "Abdelrahman Ali Kamel",
@@ -68,11 +81,11 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/real-kamel",
   resume: "/abdelrahman-ali-kamel-resume.pdf",
   availability: "Open to full-stack & backend roles",
-  bio: "I’m a computer-science graduate based in Giza, Egypt, focused on backend engineering and thoughtful system design. I like problems that reward structure — clean boundaries, explicit contracts, and code another developer can pick up without a guide.",
+  bio: "I’m a computer-science graduate based in Giza, Egypt, focused on backend engineering and thoughtful system design. I like problems that reward structure: clean boundaries, explicit contracts, and code another developer can pick up without a guide.",
   summary:
     "Full-Stack Web Developer specializing in scalable web applications with ASP.NET Core, Angular, Clean Architecture, and PostgreSQL / SQL Server.",
   summaryExtended:
-    "I build secure REST APIs, AI-powered features, cloud integrations, and responsive frontends — and I care about writing maintainable, high-quality software.",
+    "I build secure REST APIs, AI-powered features, cloud integrations, and responsive frontends. I care about writing maintainable, high-quality software.",
 } as const;
 
 export const socials: SocialLink[] = [
@@ -215,7 +228,7 @@ export const skillGroups: SkillGroup[] = [
 
 export const timeline: TimelineEntry[] = [
   {
-    period: "Jan 2026 — Jun 2026",
+    period: "Jan 2026 - Jun 2026",
     title: "Full-Stack Web & Generative AI Development using .NET",
     org: "Information Technology Institute (ITI)",
     meta: "Intensive Training Program (ITP) · Egypt",
@@ -227,7 +240,7 @@ export const timeline: TimelineEntry[] = [
     tags: ["Angular", "ASP.NET Core MVC", "N-Tier", "EF Core", "SQL Server"],
   },
   {
-    period: "Sep 2021 — Jun 2025",
+    period: "Sep 2021 - Jun 2025",
     title: "Bachelor of Computer Science",
     org: "Misr University for Science and Technology",
     meta: "Giza, Egypt · GPA 3.74 / 4.0",
@@ -242,15 +255,15 @@ export const timeline: TimelineEntry[] = [
 
 export const projects: Project[] = [
   {
-    index: "01",
     title: "Prisma LMS",
     subtitle: "A learning management system for independent teachers",
     year: "2026",
     status: "Ongoing",
+    image: "https://picsum.photos/seed/prisma-lms-classroom/1600/900?grayscale",
     highlights: [
-      "Built with a team to help independent teachers run their online teaching business — lessons, students, assistants, assessments, payments, and AI-assisted learning workflows.",
+      "Built with a team to help independent teachers run their online teaching business: lessons, students, assistants, assessments, payments, and AI-assisted learning workflows.",
       "Owned the backend architecture and infrastructure, designing the .NET 10 application around Clean Architecture, CQRS/MediatR, the Result pattern, FluentValidation, Repository, Unit of Work, and Specification patterns, backed by PostgreSQL and EF Core.",
-      "Implemented authentication and authorization with JWT / refresh tokens, role- and permission-based access control, and assistant-specific permissions — plus background processing, caching, rate limiting, structured logging, health checks, and observability.",
+      "Implemented authentication and authorization with JWT / refresh tokens, role- and permission-based access control, and assistant-specific permissions, plus background processing, caching, rate limiting, structured logging, health checks, and observability.",
       "Built AI workflows for RAG-based lesson chat, lesson summarization, and student reporting on the Microsoft Agent Framework, and containerized the backend and supporting infrastructure with Docker.",
     ],
     tags: [
@@ -268,13 +281,13 @@ export const projects: Project[] = [
     ],
   },
   {
-    index: "02",
     title: "Talabat WebAPI",
     subtitle: "An e-commerce API from catalog to checkout",
     year: "2025",
+    image: "https://picsum.photos/seed/talabat-commerce-api/1600/900?grayscale",
     highlights: [
       "Developed an e-commerce API supporting product browsing, shopping carts, orders, and customer accounts.",
-      "Architected the backend with Onion Architecture, a generic repository, Unit of Work, and Specification patterns — securing it with JWT / ASP.NET Core Identity and using Redis caching to keep shopping carts fast.",
+      "Architected the backend with Onion Architecture, a generic repository, Unit of Work, and Specification patterns, securing it with JWT / ASP.NET Core Identity and using Redis caching to keep shopping carts fast.",
     ],
     tags: [
       "ASP.NET Core",
@@ -290,10 +303,10 @@ export const projects: Project[] = [
     ],
   },
   {
-    index: "03",
     title: "FreshCart",
     subtitle: "A responsive, SEO-friendly e-commerce frontend",
     year: "2025",
+    image: "https://picsum.photos/seed/freshcart-storefront/1600/900?grayscale",
     highlights: [
       "Built a responsive storefront with Angular 20, Tailwind CSS 4, and SSR to improve SEO and application performance.",
       "Implemented JWT authentication, HTTP interceptors, global error handling, and route guards to secure navigation.",
@@ -322,6 +335,6 @@ export const faqs: { q: string; a: string }[] = [
   },
   {
     q: "Do you use AI in your work?",
-    a: "Yes — I’ve built RAG-based chat, summarization, and reporting workflows with the Microsoft Agent Framework and OpenAI, and I use AI tooling day to day.",
+    a: "Yes. I’ve built RAG-based chat, summarization, and reporting workflows with the Microsoft Agent Framework and OpenAI, and I use AI tooling day to day.",
   },
 ];

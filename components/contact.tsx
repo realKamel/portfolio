@@ -18,15 +18,10 @@ export function Contact() {
     <section id="contact" className="scroll-mt-24 border-t border-border py-24 sm:py-32">
       <div className="mx-auto w-full max-w-6xl px-6 sm:px-8 lg:px-12">
         <SectionHeading
-          index="05"
-          eyebrow="Contact"
           title={
             <>
               Let’s build something{" "}
-              <span className="font-serif font-normal italic text-brand">
-                worth shipping
-              </span>
-              .
+              <span className="text-brand">worth shipping</span>.
             </>
           }
           description="Open to full-stack and backend roles, freelance work, and interesting collaborations. Email is the fastest way to reach me."
@@ -38,16 +33,12 @@ export function Contact() {
               <p className="font-mono text-[11px] tracking-[0.2em] text-muted-foreground uppercase">
                 Email
               </p>
-              <p className="mt-3 text-2xl font-medium tracking-tight break-all transition-colors group-hover:text-brand sm:text-3xl">
+              <p className="mt-3 text-2xl font-medium tracking-tight break-words transition-colors group-hover:text-brand sm:text-3xl">
                 {profile.email}
               </p>
             </a>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button size="lg" render={<a href={`mailto:${profile.email}`} />}>
-                <Mail />
-                Send an email
-              </Button>
               <CopyEmailButton email={profile.email} />
               <Button
                 size="lg"

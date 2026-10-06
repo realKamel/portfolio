@@ -2,18 +2,12 @@
 
 import { AnimatePresence, m, useReducedMotion } from "framer-motion";
 import { ArrowUp } from "lucide-react";
-import { useEffect, useState } from "react";
+
+import { useScrolledPast } from "@/lib/motion";
 
 export function BackToTop() {
-  const [visible, setVisible] = useState(false);
+  const visible = useScrolledPast(800);
   const shouldReduceMotion = useReducedMotion();
-
-  useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 800);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   return (
     <AnimatePresence>

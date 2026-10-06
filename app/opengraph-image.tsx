@@ -1,8 +1,8 @@
 import { ImageResponse } from "next/og";
 
-import { profile } from "@/lib/data";
+import { brandColors, profile } from "@/lib/data";
 
-export const alt = `${profile.name} — ${profile.role}`;
+export const alt = `${profile.name} - ${profile.role}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -21,8 +21,8 @@ export default async function Image() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#0b0b0f",
-          color: "#f5f5f7",
+          background: brandColors.background,
+          color: brandColors.foreground,
           padding: "80px",
           fontFamily: "sans-serif",
         }}
@@ -37,14 +37,14 @@ export default async function Image() {
               height: "56px",
               borderRadius: "14px",
               border: "1px solid rgba(255,255,255,0.14)",
-              background: "#17171b",
+              background: brandColors.card,
               fontSize: "20px",
               fontWeight: 600,
             }}
           >
             {profile.monogram}
           </div>
-          <div style={{ fontSize: "22px", color: "#9a9aa2" }}>{profile.name}</div>
+          <div style={{ fontSize: "22px", color: brandColors.mutedForeground }}>{profile.name}</div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
@@ -58,7 +58,7 @@ export default async function Image() {
           >
             {profile.role}
           </div>
-          <div style={{ fontSize: "28px", color: "#9a9aa2", maxWidth: "900px" }}>
+          <div style={{ fontSize: "28px", color: brandColors.mutedForeground, maxWidth: "900px" }}>
             ASP.NET Core · Angular · Clean Architecture
           </div>
         </div>
@@ -76,10 +76,10 @@ export default async function Image() {
               width: "12px",
               height: "12px",
               borderRadius: "9999px",
-              background: "#b6f36a",
+              background: brandColors.brand,
             }}
           />
-          <div style={{ color: "#9a9aa2" }}>{profile.location}</div>
+          <div style={{ color: brandColors.mutedForeground }}>{profile.location}</div>
         </div>
       </div>
     ),

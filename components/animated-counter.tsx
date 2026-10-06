@@ -1,7 +1,13 @@
 "use client";
 
-import { animate, useInView } from "framer-motion";
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import {
+  animate,
+  m,
+  useInView,
+  useMotionValue,
+  useTransform,
+} from "framer-motion";
+import { useEffect, useMemo, useRef, useSyncExternalStore } from "react";
 
 import { EASE } from "@/lib/motion";
 import { cn } from "@/lib/utils";
@@ -51,27 +57,42 @@ export function AnimatedCounter({
     getReducedMotionSnapshot,
     getReducedMotionServerSnapshot,
   );
-  const [display, setDisplay] = useState(0);
+  // Intl keeps number formatting locale-aware instead of hand-rolled.
+  const formatter = useMemo(
+    () =>
+      new Intl.NumberFormat("en-US", {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      }),
+    [decimals],
+  );
+
+  // The count runs on a Motion value, so animating it never re-renders React.
+  const count = useMotionValue(0);
+  const display = useTransform(count, (latest) => formatter.format(latest));
 
   useEffect(() => {
     if (!inView || shouldReduceMotion) return;
 
-    const controls = animate(0, value, {
-      duration,
-      ease: EASE,
-      onUpdate: (latest) => setDisplay(latest),
-    });
-
+    const controls = animate(count, value, { duration, ease: EASE });
     return () => controls.stop();
-  }, [inView, shouldReduceMotion, value, duration]);
+  }, [inView, shouldReduceMotion, value, duration, count]);
 
-  // Reduced motion renders the final value directly — no animation, no effect.
-  const shown = shouldReduceMotion ? value : display;
+  // Reduced motion renders the final value directly, with no animation.
+  if (shouldReduceMotion) {
+    return (
+      <span ref={ref} className={cn("tabular-nums", className)}>
+        {prefix}
+        {formatter.format(value)}
+        {suffix}
+      </span>
+    );
+  }
 
   return (
     <span ref={ref} className={cn("tabular-nums", className)}>
       {prefix}
-      {shown.toFixed(decimals)}
+      <m.span>{display}</m.span>
       {suffix}
     </span>
   );

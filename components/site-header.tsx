@@ -1,7 +1,7 @@
 "use client";
 
 import { Menu } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
@@ -13,18 +13,12 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { navLinks, profile } from "@/lib/data";
+import { useScrolledPast } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
-  const [scrolled, setScrolled] = useState(false);
+  const scrolled = useScrolledPast(16);
   const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   return (
     <header
@@ -39,7 +33,7 @@ export function SiteHeader() {
         <a
           href="#top"
           className="group flex items-center gap-2.5 rounded-lg focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
-          aria-label={`${profile.name} — home`}
+          aria-label={`${profile.name} - home`}
         >
           <span className="grid size-8 place-items-center rounded-lg border border-border bg-card font-mono text-[11px] font-semibold tracking-tight transition-colors group-hover:border-brand/60 group-hover:text-brand">
             {profile.monogram}
@@ -77,7 +71,7 @@ export function SiteHeader() {
             className="hidden sm:inline-flex"
             render={<a href="#contact" />}
           >
-            Let’s talk
+            Get in touch
           </Button>
 
           <Sheet open={open} onOpenChange={setOpen}>
@@ -112,7 +106,7 @@ export function SiteHeader() {
 
               <div className="mt-auto flex flex-col gap-2 border-t border-border p-4">
                 <Button render={<a href="#contact" onClick={() => setOpen(false)} />}>
-                  Let’s talk
+                  Get in touch
                 </Button>
                 <Button
                   variant="outline"

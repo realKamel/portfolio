@@ -8,15 +8,11 @@ export function Journey() {
     <section id="journey" className="scroll-mt-24 border-t border-border py-24 sm:py-32">
       <div className="mx-auto w-full max-w-6xl px-6 sm:px-8 lg:px-12">
         <SectionHeading
-          index="04"
-          eyebrow="Journey"
           title={
             <>
               Training and{" "}
-              <span className="font-serif font-normal italic text-brand">
-                education
-              </span>{" "}
-              that shaped how I build.
+              <span className="text-brand">education</span> that shaped how I
+              build.
             </>
           }
         />

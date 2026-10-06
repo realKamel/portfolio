@@ -1,7 +1,7 @@
 import { About } from "@/components/about";
 import { BackToTop } from "@/components/back-to-top";
 import { Contact } from "@/components/contact";
-import { Hero } from "@/components/hero";
+import { Hero, Stats } from "@/components/hero";
 import { Journey } from "@/components/journey";
 import { Projects } from "@/components/projects";
 import { SiteFooter } from "@/components/site-footer";
@@ -15,6 +15,7 @@ export default function Home() {
       <SiteHeader />
       <main id="main" className="flex-1">
         <Hero />
+        <Stats />
         <TechMarquee />
         <About />
         <Projects />

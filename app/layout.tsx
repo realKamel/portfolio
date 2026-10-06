@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 
 import { MotionProvider } from "@/components/motion-provider";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { profile } from "@/lib/data";
+import { brandColors, profile } from "@/lib/data";
 
 import "./globals.css";
 
@@ -16,13 +16,6 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-});
-
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
 });
 
 const description = `${profile.role} based in ${profile.location}. ${profile.summary}`;
@@ -38,7 +31,7 @@ const metadataBase = new URL(
 
 export const metadata: Metadata = {
   metadataBase,
-  title: `${profile.name} — ${profile.role}`,
+  title: `${profile.name} - ${profile.role}`,
   description,
   keywords: [
     "Abdelrahman Ali Kamel",
@@ -53,20 +46,20 @@ export const metadata: Metadata = {
   authors: [{ name: profile.name }],
   creator: profile.name,
   openGraph: {
-    title: `${profile.name} — ${profile.role}`,
+    title: `${profile.name} - ${profile.role}`,
     description,
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${profile.name} — ${profile.role}`,
+    title: `${profile.name} - ${profile.role}`,
     description,
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0b0f",
+  themeColor: brandColors.background,
   colorScheme: "dark",
 };
 
@@ -74,8 +67,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} dark h-full antialiased`}
-      suppressHydrationWarning
+      className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-background font-sans text-foreground">
         <a

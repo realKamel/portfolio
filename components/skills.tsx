@@ -29,7 +29,10 @@ const spans = [
 
 export function Skills() {
   return (
-    <section id="skills" className="scroll-mt-24 border-t border-border py-24 sm:py-32">
+    <section
+      id="skills"
+      className="section-cv scroll-mt-24 border-t border-border py-24 sm:py-32"
+    >
       <div className="mx-auto w-full max-w-6xl px-6 sm:px-8 lg:px-12">
         <SectionHeading
           title={

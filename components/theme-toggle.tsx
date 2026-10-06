@@ -15,7 +15,8 @@ type DocumentWithViewTransition = Document & {
   startViewTransition?: (callback: () => void) => ViewTransitionLike;
 };
 
-const THEME_KEY = "theme";
+// Versioned so a future schema change can migrate instead of colliding.
+const THEME_KEY = "theme:v1";
 
 function applyTheme(next: "dark" | "light") {
   document.documentElement.classList.toggle("dark", next === "dark");

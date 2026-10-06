@@ -67,19 +67,24 @@ export function AnimatedCounter({
     [decimals],
   );
 
+  // Count only while in view and when motion is allowed. `inView` is an
+  // external subscription (not effect-set state), so it stays render-derived.
+  const shouldAnimate = inView && !shouldReduceMotion;
+
   // The count runs on a Motion value, so animating it never re-renders React.
   const count = useMotionValue(0);
   const display = useTransform(count, (latest) => formatter.format(latest));
 
   useEffect(() => {
-    if (!inView || shouldReduceMotion) return;
+    if (!shouldAnimate) return;
 
     const controls = animate(count, value, { duration, ease: EASE });
     return () => controls.stop();
-  }, [inView, shouldReduceMotion, value, duration, count]);
+  }, [shouldAnimate, value, duration, count]);
 
-  // Reduced motion renders the final value directly, with no animation.
-  if (shouldReduceMotion) {
+  // Before the count-up runs (and for reduced-motion visitors) render the real
+  // figure, so the served HTML shows the value instead of "0".
+  if (!shouldAnimate) {
     return (
       <span ref={ref} className={cn("tabular-nums", className)}>
         {prefix}

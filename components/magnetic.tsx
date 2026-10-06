@@ -17,29 +17,37 @@ interface MagneticProps {
  * reduced-motion visitors so it never fights the OS setting.
  */
 export function Magnetic({ children, className, strength = 0.35 }: MagneticProps) {
-  const ref = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
+  // Cache the element rect on hover-enter so the pointer-move handler never
+  // forces a synchronous layout read on the hot path.
+  const rectRef = useRef<DOMRect | null>(null);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const springX = useSpring(x, { stiffness: 220, damping: 18, mass: 0.4 });
   const springY = useSpring(y, { stiffness: 220, damping: 18, mass: 0.4 });
 
+  function handlePointerEnter(event: PointerEvent<HTMLDivElement>) {
+    if (shouldReduceMotion || event.pointerType !== "mouse") return;
+    rectRef.current = event.currentTarget.getBoundingClientRect();
+  }
+
   function handlePointerMove(event: PointerEvent<HTMLDivElement>) {
-    if (shouldReduceMotion || event.pointerType !== "mouse" || !ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
+    const rect = rectRef.current;
+    if (shouldReduceMotion || event.pointerType !== "mouse" || !rect) return;
     x.set((event.clientX - (rect.left + rect.width / 2)) * strength);
     y.set((event.clientY - (rect.top + rect.height / 2)) * strength);
   }
 
   function reset() {
+    rectRef.current = null;
     x.set(0);
     y.set(0);
   }
 
   return (
     <m.div
-      ref={ref}
+      onPointerEnter={handlePointerEnter}
       onPointerMove={handlePointerMove}
       onPointerLeave={reset}
       style={{ x: springX, y: springY }}

@@ -82,7 +82,8 @@ export const profile = {
   phone: "+20 101 420 2765",
   github: "https://github.com/realKamel",
   linkedin: "https://www.linkedin.com/in/real-kamel",
-  resume: "/abdelrahman-ali-kamel-resume.pdf",
+  // Google Drive share link — set the file to "Anyone with the link".
+  resume: "https://drive.google.com/file/d/REPLACE_WITH_DRIVE_FILE_ID/view",
   availability: "Open to full-stack & backend roles",
   bio: "I’m a computer-science graduate based in Giza, Egypt, focused on backend engineering and thoughtful system design. I like problems that reward structure: clean boundaries, explicit contracts, and code another developer can pick up without a guide.",
   summary:

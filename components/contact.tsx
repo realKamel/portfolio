@@ -1,21 +1,25 @@
 import { Download, Mail } from "lucide-react";
+import dynamic from "next/dynamic";
 
 import { GithubIcon, LinkedinIcon } from "@/components/brand-icons";
 import { CopyEmailButton } from "@/components/copy-email-button";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { faqs, profile, socials } from "@/lib/data";
+import { profile, socials } from "@/lib/data";
+
+// Split the accordion into its own chunk so base-ui's components stay out of
+// the initial bundle; still server-rendered so the FAQ remains in the HTML.
+const FaqAccordion = dynamic(() =>
+  import("@/components/faq-accordion").then((mod) => mod.FaqAccordion),
+);
 
 export function Contact() {
   return (
-    <section id="contact" className="scroll-mt-24 border-t border-border py-24 sm:py-32">
+    <section
+      id="contact"
+      className="section-cv scroll-mt-24 border-t border-border py-24 sm:py-32"
+    >
       <div className="mx-auto w-full max-w-6xl px-6 sm:px-8 lg:px-12">
         <SectionHeading
           title={
@@ -33,7 +37,7 @@ export function Contact() {
               <p className="font-mono text-[11px] tracking-[0.2em] text-muted-foreground uppercase">
                 Email
               </p>
-              <p className="mt-3 text-2xl font-medium tracking-tight break-words transition-colors group-hover:text-brand sm:text-3xl">
+              <p className="mt-3 text-2xl font-medium tracking-tight wrap-break-word transition-colors group-hover:text-brand sm:text-3xl">
                 {profile.email}
               </p>
             </a>
@@ -97,21 +101,7 @@ export function Contact() {
             <p className="font-mono text-[11px] tracking-[0.2em] text-muted-foreground uppercase">
               Good to know
             </p>
-            <Accordion
-              multiple
-              className="mt-4 rounded-2xl border border-border bg-card/40 px-5"
-            >
-              {faqs.map((faq, index) => (
-                <AccordionItem key={faq.q} value={index}>
-                  <AccordionTrigger className="py-4 text-sm font-medium">
-                    {faq.q}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-sm leading-relaxed text-muted-foreground">
-                    {faq.a}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+            <FaqAccordion />
           </Reveal>
         </div>
       </div>

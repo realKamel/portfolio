@@ -117,7 +117,10 @@ function ProjectCard({ project }: { project: Project }) {
 
 export function Projects() {
   return (
-    <section id="work" className="scroll-mt-24 border-t border-border py-24 sm:py-32">
+    <section
+      id="work"
+      className="section-cv scroll-mt-24 border-t border-border py-24 sm:py-32"
+    >
       <div className="mx-auto w-full max-w-6xl px-6 sm:px-8 lg:px-12">
         <SectionHeading
           eyebrow="Selected work"

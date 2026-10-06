@@ -31,6 +31,7 @@ export function Reveal({
 
   return (
     <m.div
+      data-reveal=""
       className={cn(className)}
       initial={{ opacity: 0, y: shouldReduceMotion ? 0 : y }}
       whileInView={{ opacity: 1, y: 0 }}

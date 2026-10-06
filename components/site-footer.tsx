@@ -4,8 +4,8 @@ import { GithubIcon, LinkedinIcon } from "@/components/brand-icons";
 import { navLinks, profile, socials } from "@/lib/data";
 import { getCurrentYear } from "@/lib/get-current-year";
 
-export async function SiteFooter() {
-  const year = await getCurrentYear();
+export function SiteFooter() {
+  const year = getCurrentYear();
 
   return (
     <footer className="border-t border-border py-12">

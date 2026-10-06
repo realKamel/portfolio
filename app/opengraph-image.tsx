@@ -2,6 +2,9 @@ import { ImageResponse } from "next/og";
 
 import { brandColors, profile } from "@/lib/data";
 
+// Required for `output: "export"` — the card is generated once at build time.
+export const dynamic = "force-static";
+
 export const alt = `${profile.name} - ${profile.role}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";

@@ -12,7 +12,7 @@ const facts: { label: string; value: string; highlight?: boolean }[] = [
 
 export function About() {
   return (
-    <section id="about" className="scroll-mt-24 py-24 sm:py-32">
+    <section id="about" className="section-cv scroll-mt-24 py-24 sm:py-32">
       <div className="mx-auto w-full max-w-6xl px-6 sm:px-8 lg:px-12">
         <SectionHeading
           title={

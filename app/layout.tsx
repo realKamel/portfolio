@@ -70,7 +70,7 @@ export const viewport: Viewport = {
  * Applies the saved (or system) colour theme before first paint. Kept inline and
  * synchronous so there is no flash of the wrong theme.
  */
-const themeScript = `(function(){try{var t=localStorage.getItem("theme");var d=t?t==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.classList.toggle("dark",d);}catch(e){}})();`;
+const themeScript = `(function(){try{var s=localStorage;var t=s.getItem("theme:v1")||s.getItem("theme");var d=t?t==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.classList.toggle("dark",d);}catch(e){}})();`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

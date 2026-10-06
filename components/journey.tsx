@@ -5,7 +5,10 @@ import { timeline } from "@/lib/data";
 
 export function Journey() {
   return (
-    <section id="journey" className="scroll-mt-24 border-t border-border py-24 sm:py-32">
+    <section
+      id="journey"
+      className="section-cv scroll-mt-24 border-t border-border py-24 sm:py-32"
+    >
       <div className="mx-auto w-full max-w-6xl px-6 sm:px-8 lg:px-12">
         <SectionHeading
           title={

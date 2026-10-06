@@ -195,6 +195,42 @@
   animation-play-state: paused;
 }
 
+/* CSS-first entrance for above-the-fold content. Unlike a JS-gated reveal, this
+   paints and animates on the first frame, so it never pushes out LCP and it
+   still works when JavaScript is unavailable. Stagger via --reveal-delay. */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, var(--reveal-y, 24px), 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.reveal-up {
+  animation: reveal-up var(--reveal-duration, 0.7s)
+    var(--reveal-ease, cubic-bezier(0.22, 1, 0.36, 1)) both;
+  animation-delay: var(--reveal-delay, 0s);
+}
+
+/* Long, below-the-fold sections skip layout and paint until they scroll near.
+   `auto` in contain-intrinsic-size remembers real height once measured. */
+.section-cv {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
+
+/* Without scripting the JS scroll-reveal never runs, so never leave content
+   stuck in its hidden initial state. */
+@media (scripting: none) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -202,7 +238,8 @@
   .animate-marquee,
   .animate-ping,
   .animate-pulse,
-  .animate-bounce {
+  .animate-bounce,
+  .reveal-up {
     animation: none;
   }
 }

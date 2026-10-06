@@ -1,6 +1,6 @@
 "use client";
 
-import { animate, m, useInView, useMotionValue, useTransform } from "motion/react";
+import { animate, inView, m, useMotionValue, useTransform } from "motion/react";
 import { useEffect, useMemo, useRef, useSyncExternalStore } from "react";
 
 import { EASE } from "@/lib/motion";
@@ -43,7 +43,6 @@ export function AnimatedCounter({
   className,
 }: AnimatedCounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
   // `useSyncExternalStore` uses the server snapshot during hydration and only
   // applies the real media-query value afterwards, so there is no mismatch.
   const shouldReduceMotion = useSyncExternalStore(
@@ -61,33 +60,30 @@ export function AnimatedCounter({
     [decimals],
   );
 
-  // Count only while in view and when motion is allowed. `inView` is an external
-  // subscription, so this stays render-derived rather than set in an effect.
-  const shouldAnimate = inView && !shouldReduceMotion;
-
-  // Animating a Motion value writes straight to the DOM, so the count-up never
-  // re-renders React per frame.
-  const count = useMotionValue(0);
+  // Seeded with the real value so the prerendered HTML (and reduced-motion
+  // visitors) show the figure; the count-up resets it to 0 on first view.
+  const count = useMotionValue(value);
   const display = useTransform(count, (latest) => formatter.format(latest));
 
   useEffect(() => {
-    if (!shouldAnimate) return;
+    const element = ref.current;
+    if (!element || shouldReduceMotion) return;
 
-    const controls = animate(count, value, { duration, ease: EASE });
-    return () => controls.stop();
-  }, [shouldAnimate, value, duration, count]);
-
-  // Before the count-up runs (and for reduced-motion visitors) render the real
-  // figure, so the served HTML shows the value instead of "0".
-  if (!shouldAnimate) {
-    return (
-      <span ref={ref} className={cn("tabular-nums", className)}>
-        {prefix}
-        {formatter.format(value)}
-        {suffix}
-      </span>
+    let started = false;
+    // `inView` is Motion's imperative viewport API: it fires a callback instead
+    // of driving React state, so entering the viewport never re-renders. The
+    // count animates a Motion value, which writes straight to the DOM.
+    return inView(
+      element,
+      () => {
+        if (started) return;
+        started = true;
+        count.set(0);
+        animate(count, value, { duration, ease: EASE });
+      },
+      { margin: "0px 0px -40px 0px" },
     );
-  }
+  }, [shouldReduceMotion, value, duration, count]);
 
   return (
     <span ref={ref} className={cn("tabular-nums", className)}>

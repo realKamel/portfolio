@@ -26,8 +26,20 @@ export function Magnetic({ children, className, strength = 0.35 }: MagneticProps
   // render cycle, so tracking the cursor never triggers a re-render.
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 220, damping: 18, mass: 0.4 });
-  const springY = useSpring(y, { stiffness: 220, damping: 18, mass: 0.4 });
+  // `restDelta` lets each spring stop once it is within half a pixel of its
+  // target rather than running to the default 0.01px.
+  const springX = useSpring(x, {
+    stiffness: 220,
+    damping: 18,
+    mass: 0.4,
+    restDelta: 0.5,
+  });
+  const springY = useSpring(y, {
+    stiffness: 220,
+    damping: 18,
+    mass: 0.4,
+    restDelta: 0.5,
+  });
 
   function handlePointerEnter(event: PointerEvent<HTMLDivElement>) {
     if (shouldReduceMotion || event.pointerType !== "mouse") return;

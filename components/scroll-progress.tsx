@@ -10,7 +10,8 @@ export function ScrollProgress() {
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 140,
     damping: 26,
-    restDelta: 0.001,
+    // Settle sooner so the spring stops doing work once scrolling stops.
+    restDelta: 0.01,
   });
 
   return (

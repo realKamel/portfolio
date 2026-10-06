@@ -1,15 +1,15 @@
 "use client";
 
-import { useScroll } from "framer-motion";
+import { useScroll } from "motion/react";
 import { useCallback, useSyncExternalStore } from "react";
 
 /** Soft "easeOutExpo"-style curve that reads as premium rather than bouncy. */
 export const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 /**
- * True once the page is scrolled past `offset`px. Uses Motion's rAF-batched
- * scroll subscription instead of a raw `window.addEventListener("scroll")`, so
- * the check stays off the critical scroll path.
+ * True once the page is scrolled past `offset`px. Reads Motion's rAF-batched
+ * `scrollY` MotionValue instead of a raw scroll listener, so the check never
+ * touches the main thread on the critical scroll path.
  */
 export function useScrolledPast(offset: number) {
   const { scrollY } = useScroll();

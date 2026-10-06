@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, m, useReducedMotion } from "framer-motion";
+import { AnimatePresence, m, useReducedMotion } from "motion/react";
 import { ArrowUp } from "lucide-react";
 
 import { useScrolledPast } from "@/lib/motion";
@@ -15,7 +15,10 @@ export function BackToTop() {
         <m.button
           type="button"
           onClick={() =>
-            window.scrollTo({ top: 0, behavior: shouldReduceMotion ? "auto" : "smooth" })
+            window.scrollTo({
+              top: 0,
+              behavior: shouldReduceMotion ? "auto" : "smooth",
+            })
           }
           initial={{ opacity: 0, scale: 0.9, y: 8 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}

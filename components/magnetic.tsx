@@ -1,6 +1,6 @@
 "use client";
 
-import { m, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
+import { m, useMotionValue, useReducedMotion, useSpring } from "motion/react";
 import { useRef, type PointerEvent, type ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
@@ -22,6 +22,8 @@ export function Magnetic({ children, className, strength = 0.35 }: MagneticProps
   // forces a synchronous layout read on the hot path.
   const rectRef = useRef<DOMRect | null>(null);
 
+  // Motion values drive the transform directly — the spring runs off the React
+  // render cycle, so tracking the cursor never triggers a re-render.
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const springX = useSpring(x, { stiffness: 220, damping: 18, mass: 0.4 });

@@ -1,5 +1,4 @@
 import { ArrowUpRight, Download } from "lucide-react";
-
 import { AnimatedCounter } from "@/components/animated-counter";
 import { Magnetic } from "@/components/magnetic";
 import { Reveal } from "@/components/reveal";
@@ -19,7 +18,7 @@ export function Hero() {
     >
       {/* Ambient light only. No decorative grid lines. */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -top-56 left-1/2 h-136 w-136 -translate-x-1/2 rounded-full bg-brand/8 blur-[130px]" />
+        <div className="hero-glow absolute -top-56 left-1/2 h-136 w-136 -translate-x-1/2 rounded-full" />
       </div>
 
       <div className="mx-auto w-full max-w-6xl px-6 sm:px-8 lg:px-12">

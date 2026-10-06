@@ -1,10 +1,12 @@
 "use client";
 
-import { m, useScroll, useSpring } from "framer-motion";
+import { m, useScroll, useSpring } from "motion/react";
 
 /** Hairline progress bar pinned to the very top of the viewport. */
 export function ScrollProgress() {
   const { scrollYProgress } = useScroll();
+  // `scaleX` is a Motion value written straight to the DOM (and composited), so
+  // scroll tracking never re-renders React.
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 140,
     damping: 26,

@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  animate,
-  m,
-  useInView,
-  useMotionValue,
-  useTransform,
-} from "framer-motion";
+import { animate, m, useInView, useMotionValue, useTransform } from "motion/react";
 import { useEffect, useMemo, useRef, useSyncExternalStore } from "react";
 
 import { EASE } from "@/lib/motion";
@@ -67,11 +61,12 @@ export function AnimatedCounter({
     [decimals],
   );
 
-  // Count only while in view and when motion is allowed. `inView` is an
-  // external subscription (not effect-set state), so it stays render-derived.
+  // Count only while in view and when motion is allowed. `inView` is an external
+  // subscription, so this stays render-derived rather than set in an effect.
   const shouldAnimate = inView && !shouldReduceMotion;
 
-  // The count runs on a Motion value, so animating it never re-renders React.
+  // Animating a Motion value writes straight to the DOM, so the count-up never
+  // re-renders React per frame.
   const count = useMotionValue(0);
   const display = useTransform(count, (latest) => formatter.format(latest));
 

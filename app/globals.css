@@ -181,6 +181,17 @@
   }
 }
 
+/* Dark-mode toggles get janky when hundreds of elements animate their colours
+   at once. While `.theme-switching` is set we disable transitions so the
+   browser paints the new theme in a single pass instead of animating every
+   colour across the page. Toggled from `theme-toggle.tsx` for one frame. */
+.theme-switching,
+.theme-switching *,
+.theme-switching *::before,
+.theme-switching *::after {
+  transition: none !important;
+}
+
 /* The marquee row is rendered twice, so translating -50% loops seamlessly. */
 @keyframes marquee {
   from {
@@ -220,6 +231,25 @@
 .section-cv {
   content-visibility: auto;
   contain-intrinsic-size: auto 900px;
+}
+
+/* Ambient hero glow. A `filter: blur()` at this radius is expensive to
+   rasterize on mobile and re-rasterizes on every theme switch, so touch
+   devices use an equivalent radial gradient; only fine-pointer desktops keep
+   the blurred version. */
+.hero-glow {
+  background: radial-gradient(
+    circle at 50% 50%,
+    color-mix(in oklch, var(--brand) 11%, transparent) 0%,
+    transparent 70%
+  );
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-glow {
+    background: color-mix(in oklch, var(--brand) 8%, transparent);
+    filter: blur(130px);
+  }
 }
 
 /* Without scripting the JS scroll-reveal never runs, so never leave content
@@ -272,18 +302,36 @@
 }
 
 /* Circle-reveal theme change (View Transitions API).
-   The default cross-fade is disabled so the growing circle is the only motion;
-   the new theme's snapshot is what expands over the old one. */
+   A plain opacity cross-fade: unlike a clip-path circle, opacity on the
+   view-transition pseudo-elements is animated on the compositor, so the reveal
+   itself costs no per-frame main-thread work. Enabled on desktop only — see
+   `theme-toggle.tsx`. */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation: none;
   mix-blend-mode: normal;
+  animation-duration: 300ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
 }
 
 ::view-transition-old(root) {
   z-index: 1;
+  animation-name: theme-fade-out;
 }
 
 ::view-transition-new(root) {
   z-index: 2;
+  animation-name: theme-fade-in;
+}
+
+@keyframes theme-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes theme-fade-out {
+  to {
+    opacity: 0;
+  }
 }

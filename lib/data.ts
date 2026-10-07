@@ -79,13 +79,14 @@ export const profile = {
   role: "Full-Stack .NET Developer",
   location: "Giza, Egypt",
   email: "abdelrahman.kamel.dev@gmail.com",
-  phone: "+20 101 420 2765",
+  phone: "+201014202765",
   github: "https://github.com/realKamel",
   linkedin: "https://www.linkedin.com/in/real-kamel",
   // Google Drive share link — set the file to "Anyone with the link".
-  resume: "https://drive.google.com/file/d/REPLACE_WITH_DRIVE_FILE_ID/view",
+  resume:
+    "https://drive.google.com/file/d/1jc13zwgmNtlHTy1rzFeW5rcDzWa6XTKK/view",
   availability: "Open to full-stack & backend roles",
-  bio: "I’m a computer-science graduate based in Giza, Egypt, focused on backend engineering and thoughtful system design. I like problems that reward structure: clean boundaries, explicit contracts, and code another developer can pick up without a guide.",
+  bio: "I'm a computer-science graduate based in Giza, Egypt, focused on backend engineering and thoughtful system design. I like problems that reward structure: clean boundaries, explicit contracts, and code another developer can pick up without a guide.",
   summary:
     "Full-Stack Web Developer specializing in scalable web applications with ASP.NET Core, Angular, Clean Architecture, and PostgreSQL / SQL Server.",
   summaryExtended:
@@ -211,7 +212,13 @@ export const skillGroups: SkillGroup[] = [
     key: "cloud",
     title: "Data & Cloud",
     icon: "database",
-    items: ["PostgreSQL", "SQL Server", "Docker", "OpenAI", "Microsoft Agents Framework"],
+    items: [
+      "PostgreSQL",
+      "SQL Server",
+      "Docker",
+      "OpenAI",
+      "Microsoft Agents Framework",
+    ],
   },
   {
     key: "tools",
@@ -237,7 +244,7 @@ export const timeline: TimelineEntry[] = [
     org: "Information Technology Institute (ITI)",
     meta: "Intensive Training Program (ITP) · Egypt",
     description:
-      "Selected for ITI’s intensive training program, building production-style web applications while specializing in .NET backend engineering and generative-AI integration.",
+      "Selected for ITI's intensive training program, building production-style web applications while specializing in .NET backend engineering and generative-AI integration.",
     points: [
       "Built web applications using Angular / ASP.NET Core MVC, N-Tier architecture, EF Core, and SQL Server.",
     ],
@@ -331,14 +338,14 @@ export const faqs: { q: string; a: string }[] = [
   },
   {
     q: "Where are you based?",
-    a: "Giza, Egypt. I’m comfortable working remotely with distributed teams and across time zones.",
+    a: "Giza, Egypt. I'm comfortable working remotely with distributed teams and across time zones.",
   },
   {
-    q: "What’s your main stack?",
+    q: "What's your main stack?",
     a: "ASP.NET Core and .NET Web APIs on the backend, Angular on the frontend, PostgreSQL or SQL Server for data, and Docker for packaging and deployment.",
   },
   {
     q: "Do you use AI in your work?",
-    a: "Yes. I’ve built RAG-based chat, summarization, and reporting workflows with the Microsoft Agent Framework and OpenAI, and I use AI tooling day to day.",
+    a: "Yes. I've built RAG-based chat, summarization, and reporting workflows with the Microsoft Agent Framework and OpenAI, and I use AI tooling day to day.",
   },
 ];

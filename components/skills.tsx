@@ -57,14 +57,16 @@ export function Skills() {
                 <Card
                   className={cn(
                     "h-full bg-card/40 transition-colors duration-300 hover:ring-brand/40",
-                    tinted && "bg-brand/[0.06] ring-brand/20",
+                    tinted && "bg-brand/6 ring-brand/20",
                   )}
                 >
                   <CardHeader>
                     <span className="grid size-9 place-items-center rounded-lg border border-border bg-background text-brand">
                       <Icon className="size-4" />
                     </span>
-                    <CardTitle className="mt-4 text-lg">{group.title}</CardTitle>
+                    <CardTitle className="mt-4 text-lg">
+                      {group.title}
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <ul className="flex flex-wrap gap-1.5">

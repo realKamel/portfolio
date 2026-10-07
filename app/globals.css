@@ -2,6 +2,10 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+/* Vendored agent skills are not app source. Tailwind's automatic source
+   detection would otherwise scan their docs and emit classes for them. */
+@source not "../.agents";
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

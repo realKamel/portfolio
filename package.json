@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "npx --yes serve out",
     "lint": "eslint",
-    "deploy": "next build && gh-pages -d out --nojekyll"
+    "deploy": "next build && gh-pages -d out --nojekyll --remove \"{**/*,.agents/**}\""
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
